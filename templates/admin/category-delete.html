@@ -1,0 +1,21 @@
+{% extends 'admin/layout.html' %}
+
+{% block title%}{{title}}{% endblock %}
+
+{% block content %}
+
+<main class="container mx-auto text text-center">
+    <form class="w-full grid" action="category-delete.php" method="POST">
+        <input type="hidden" name="id" value="{{category.id}}">
+        <h2 class="text-blue-500 mb-8">Are you sure you want to delete this category?</h2>
+        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            Yes
+        </button>
+        <a href="{{doc_root}}admin/categories.php">NO</a>
+        {% if errors.content %}
+              <p class="text-red-500">{{errors.content}}</p>
+        {% endif %}
+    </form>
+</main>
+
+{% endblock %}

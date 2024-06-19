@@ -1,0 +1,56 @@
+{% extends 'admin/layout.html' %}
+
+{% block title %}{{category.name}}{%endblock%}
+{% block description %}{{category.description}}{% endblock %}
+
+{% block content %}
+
+    <main class="container mx-auto flex justify-center flex-col items-center dark:text-white">
+        <header class="p-10">
+            {% if error %}
+                <p class="error text-red-500 bg-red-200 p-5 rounded-md">{{error}}</p>
+            {% endif %}
+            {% if success %}
+                <p class="success text-green-500 bg-green-200 p-5 rounded-md">{{success }}</p>
+            {% endif %}
+            <h1 class="text-4xl text-blue-500 mb-8">Articles</h1>
+            <button class="text-white bg-blue-500 p-3 rounded-md hover:bg-pink-600"><a href="article.php"> Add new article</a></button>
+        </header>
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 max-w-xl mb-10">
+            <thead class="text-xl text-white-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-white ">
+                <tr>
+                    <th class="px-6 py-3">IMAGE</th>
+                    <th class="px-6 py-3">TITLE</th>
+                    <th class="px-6 py-3">CREATED</th>
+                    <th class="px-6 py-3">CATEGORY</th>
+                    <th class="px-6 py-3">PUBLISHED</th>
+                    <th class="px-6 py-3">EDIT</th>
+                    <th class="px-6 py-3">DELETE</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for article in articles %}
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:text-white">
+                        <td class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
+                            {% if article.image_file %}
+                            <img src="{{doc_root}}uploads/{{article.image_file}}" 
+                                alt="{{article.alt_text}}">
+                            {% else %}
+                            <img src="{{doc_root}}images/placeholder.jpg" alt="No image available">
+                            {% endif %}
+                        </td>
+                        <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{article.title}}</td>
+                        <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{article.created|date('d M. Y')}}</td>
+                        <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{article.category}}</td>
+                        <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ article.published ? 'YES' : 'NO' }}</td>
+
+                        <td class="px-6 py-4 font-medium text-pink-600 whitespace-nowrap"><a href="article.php?id={{article.id}}">Edit</a></td>
+                        <td class="px-6 py-4 font-medium text-blue-600 whitespace-nowrap"><a href="article-delete.php?id={{article.id}}">Delete</a></td>
+                    </tr>
+
+                {% endfor %}
+            </tbody>
+        </table>
+    </main>
+{% endblock %}

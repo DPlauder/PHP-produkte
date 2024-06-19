@@ -1,0 +1,22 @@
+{% extends 'admin/layout.html' %}
+
+{% block title%}{{title}}{% endblock %}
+
+{% block content %}
+
+<main class="container mx-auto text text-center">
+    <form class="w-full grid" action="article-delete.php?id={{article.id ?? ''}}" method="POST">
+        <input type="hidden" name="id" value="{{article.id}}">
+        <h2 class="text-blue-500 mb-8">Are you sure you want to delete this article?</h2>
+        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            Yes
+        </button>
+        <a href="{{doc_root}}templates/admin/articles.php">NO</a>
+        {% if errors is null %}
+              <p class="text-red-500">{{errors.content}}</p>
+        {% endif %}
+    </form>
+</main>
+
+
+{% endblock %}

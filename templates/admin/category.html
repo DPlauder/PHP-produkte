@@ -1,0 +1,39 @@
+{% extends 'admin/layout.html' %}
+
+{% block title %}{{category.name}}{%endblock%}
+{% block description %}{{category.description}}{% endblock %}
+
+{% block content %}
+
+    <main class="container w-auto md:w-1/2 flex justify-center flex-col items-center p-5">
+        <form class="w-full grid" action="category.php?id={{category.id}}" method="POST">
+            <h2 class="text3xl text-blue-500 mb-8">{{category.id ? 'Edit ' : 'New '}}Category</h2>
+
+            {% if errors.issue %}
+                <p class="error text-red-500 bg-red-200 p-5 rounded-md">{{errors.issue}}</p>
+            {% endif %}
+            <div class="p-4">
+                <label class="block mb-2 text-sm font-medium text-gray-900" for="name">Name</label>
+                <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                type="text" id="name" name="name" value="{{category.name}}">
+                <span class="error text-red-500">{{errors.name}}</span>
+            </div>
+            <div class="p-4">
+                <label class="block mb-2 text-sm font-medium text-gray-900" for="description">Description</label>
+                <textarea class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                name="description" id="description">{{category.description}}</textarea>
+                <span class="text-red-500">{{errors.description}}</span>
+            </div>
+            <div class="p-4">
+                <input class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600" type="checkbox"
+                name="navigation" id="navigation" 
+                    {% if category.navigation %}
+                        checked
+                    {% endif %}>
+                <label class="ms-2 text-sm font-medium text-gray-900" for="navigation">Navigation</label>
+            </div>
+            <button type="submit" class="text-white bg-blue-500 p-3 rounded-md hover:bg-pink-600">Save</button>
+        </form>
+    </main>
+
+{% endblock %}

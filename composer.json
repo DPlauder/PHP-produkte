@@ -1,0 +1,12 @@
+{
+    "require": {
+        "ezyang/htmlpurifier": "^4.17",
+        "twig/twig": "^3.10",
+        "phpmailer/phpmailer": "^6.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "EdvGraz\\": "src/classes/"
+        }
+    }
+}
